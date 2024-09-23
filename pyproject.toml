@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "AtriFlow"
+version = "0.1.0"
+description = "A Python package for atrial flow rate estimation in patient-specific geometries."
+authors = [{ name = "Henrik A. Kjeldsberg", email = "henrik.kjeldsberg@live.no" }]
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+readme = "README.md"
+dependencies = [
+    "matplotlib>=3.0",
+    "numpy>=1.19.0",
+    "pandas>=1.0",
+    "scipy>=1.5.0",
+    "seaborn>=0.11.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/KVSlab/AtriFlow.git"
+Repository = "https://github.com/KVSlab/AtriFlow.git"
+Issues = "https://github.com/KVSlab/AtriFlow/issues"
+
+
+[project.optional-dependencies]
+test = [
+    "isort",
+    "black",
+    "flake8",
+    "pytest",
+]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests"
+]
