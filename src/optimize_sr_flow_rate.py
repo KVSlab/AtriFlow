@@ -127,7 +127,6 @@ def calculate_co_mv_and_pv_peak(
         Q_pv = Q_pv / np.max(Q_pv) * max_pv * area_pv_total
         Q_wall = np.gradient(volume_splev, t_max / 1000)
         Q_mv = Q_pv - Q_wall
-
     if model != "MaxPV":
         # Calculate Q_pv based on volume
         Q_pv, _ = get_pv_flow_rate(t_max, Q_mv, model_data)
