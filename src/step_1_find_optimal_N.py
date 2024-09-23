@@ -41,7 +41,7 @@ def compute_error(optimal_Q_avg, optimal_n, optimal_bpm):
         np.abs(mv_calculated_opt - reference_mv_velocity) / reference_mv_velocity
     )
     relative_error_mv_sd = (
-            100* np.abs(np.std(mv_calculated_opt) - reference_mv_velocity_sd) / reference_mv_velocity_sd
+            100 * np.abs(np.std(mv_calculated_opt) - reference_mv_velocity_sd) / reference_mv_velocity_sd
     )
 
     relative_error_pv = 100 * np.mean(
@@ -179,14 +179,14 @@ def objective_function(params):
     component4 = w4 * np.abs(bpm - reference_bpm) / reference_bpm
 
     # Calculate the total objective function as the sum of components
-    objective_function = (
+    F = (
             np.sum(component1)
             + np.sum(component2)
             + np.sum(component3)
             + np.sum(component4)
     )
 
-    return objective_function
+    return F
 
 
 def perform_optimization(model):
