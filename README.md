@@ -1,8 +1,8 @@
 # AtriFlow - Atrial Flow Rates Estimation
 
-**AtriFlow** is a Python package designed for estimating atrial flow rates in patient-specific geometries. It provides
-tools for modeling atrial flow dynamics using computational fluid dynamics (CFD) techniques and optimization methods.
-The package supports both atrial fibrillation (AF) and sinus rhythm (SR) conditions.
+**AtriFlow** is a Python package designed for estimating atrial flow rates in patient-specific geometries, specifically
+the left atrium. It provides tools for modeling atrial flow dynamics using computational fluid dynamics (CFD) techniques
+and optimization methods. The package supports both atrial fibrillation (AF) and sinus rhythm (SR) conditions.
 
 ## Features
 
