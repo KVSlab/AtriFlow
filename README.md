@@ -20,6 +20,7 @@ and optimization methods. The package supports both atrial fibrillation (AF) and
     - `pandas>=1.0`
     - `scipy>=1.5.0`
     - `seaborn>=0.11.0`
+
 ## Installation
 
 To install `AtriFlow`, clone the repository:
@@ -34,7 +35,7 @@ Then navigate inside the `AtriFlow` folder and install its dependencies in a Pyt
 python -m pip install .
 ```
 
-Successful execution will install `AtriFlow` to your computer. 
+Successful execution will install `AtriFlow` to your computer.
 
 ### Optional Development Dependencies
 
@@ -70,7 +71,8 @@ atriflow-af
 atriflow-sr
 ```
 
-This will store flow rate files in the 'data/flow_rates' folder.
+This will store flow rate files in the `data/flow_rates/flow_rates_[CONDITION]` folder for conditions `af` and `sr`.
+Filenames will indicate the model used, e.g. `flow_rate_[model-name]_Q-A.txt` for the **Q-A**-model
 
 ## Author
 
