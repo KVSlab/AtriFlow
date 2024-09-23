@@ -1,4 +1,4 @@
-from os import path, makedirs
+from os import makedirs, path
 
 import numpy as np
 import scipy
