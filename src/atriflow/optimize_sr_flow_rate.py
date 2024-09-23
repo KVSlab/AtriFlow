@@ -245,8 +245,8 @@ def perform_optimization(model):
 
 def main():
     # Get references
-    global reference_co, reference_co_sd, reference_pv_velocity, reference_pv_velocity_sd, reference_mv_velocity, \
-        reference_mv_velocity_sd, reference_bpm, reference_bpm_sd
+    global reference_co, reference_co_sd, reference_pv_velocity, reference_pv_velocity_sd, reference_mv_velocity
+    global reference_mv_velocity_sd, reference_bpm, reference_bpm_sd
     global area_avg, volume_avg, Q_ref, model, all_model_data
 
     reference_dict = create_main_ref_sr()
