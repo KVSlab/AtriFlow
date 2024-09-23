@@ -11,9 +11,7 @@ and optimization methods. The package supports both atrial fibrillation (AF) and
 - Visualize and analyze atrial flow using various plotting tools
 - Configurable flow rate calculation using geometrical and hemodynamic data
 
-## Installation
-
-### Requirements
+## Requirements
 
 - Python 3.10 or later
 - Dependencies:
@@ -22,12 +20,21 @@ and optimization methods. The package supports both atrial fibrillation (AF) and
     - `pandas>=1.0`
     - `scipy>=1.5.0`
     - `seaborn>=0.11.0`
+## Installation
 
-To install the package and its dependencies, run:
+To install `AtriFlow`, clone the repository:
 
 ```bash
-pip install .
+git clone https://github.com/KVSlab/AtriFlow.git
 ```
+
+Then navigate inside the `AtriFlow` folder and install its dependencies in a Python environment:
+
+```bash
+python -m pip install .
+```
+
+Successful execution will install `AtriFlow` to your computer. 
 
 ### Optional Development Dependencies
 
