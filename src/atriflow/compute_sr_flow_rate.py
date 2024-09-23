@@ -1,4 +1,4 @@
-from os import mkdir, path
+from os import path, makedirs
 
 import numpy as np
 import scipy
@@ -69,7 +69,7 @@ def create_plot_and_save_sr_flow_rate(cases, datas, Q_bosi, model, condition):
 
         save_path = SAVE_PATH.format(condition)
         if not path.isdir(save_path):
-            mkdir(save_path)
+            makedirs(save_path, exist_ok=True)
         np.savetxt(
             path.join(save_path, f"flow_rate_{case}_{model}.txt"),
             np.array([time, Q_pv]).T,
