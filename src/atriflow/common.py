@@ -336,10 +336,11 @@ def check_data(path_to_check):
         print(f"File not found: {e}")
         print("Files should be located within 'data' folder")
         print("Required files:")
-        print("- 'geometry': Folder with info files (PV area, MV area)")
+        print("- 'model_info': Folder with info files (PV area, MV area)")
         print(
-            "- 'volumes': Folder with time-dependent volume files and flow extension lengths"
+            "- 'flow_extension_lengths': Folder with info about flow extension lengths used during meshing"
         )
+        print("- 'volumes': Folder with time-dependent volume files")
         print("- 'flow_rate_waveform.csv': Generic wave form data points")
         print(f"\n Files/Folders are available online here: {DATASET_URL}")
         sys.exit(1)
