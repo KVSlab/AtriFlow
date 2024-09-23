@@ -2,12 +2,7 @@ import numpy as np
 import scipy
 from scipy.optimize import minimize
 
-from common import (
-    create_main_ref_sr,
-    get_pv_flow_rate,
-    get_cases,
-    load_data,
-)
+from atriflow.common import create_main_ref_sr, get_cases, get_pv_flow_rate, load_data
 
 
 def compute_error(optimal_Q_avg, optimal_n, optimal_bpm):
@@ -34,23 +29,25 @@ def compute_error(optimal_Q_avg, optimal_n, optimal_bpm):
         np.abs(co_calculated_opt - reference_co) / reference_co
     )
     relative_error_co_sd = (
-            100 * np.abs(np.std(co_calculated_opt) - reference_co_sd) / reference_co_sd
+        100 * np.abs(np.std(co_calculated_opt) - reference_co_sd) / reference_co_sd
     )
 
     relative_error_mv = 100 * np.mean(
         np.abs(mv_calculated_opt - reference_mv_velocity) / reference_mv_velocity
     )
     relative_error_mv_sd = (
-            100 * np.abs(np.std(mv_calculated_opt) - reference_mv_velocity_sd) / reference_mv_velocity_sd
+        100
+        * np.abs(np.std(mv_calculated_opt) - reference_mv_velocity_sd)
+        / reference_mv_velocity_sd
     )
 
     relative_error_pv = 100 * np.mean(
         np.abs(pv_calculated_opt - reference_pv_velocity) / reference_pv_velocity
     )
     relative_error_pv_sd = (
-            100
-            * np.abs(np.std(pv_calculated_opt) - reference_pv_velocity_sd)
-            / reference_pv_velocity_sd
+        100
+        * np.abs(np.std(pv_calculated_opt) - reference_pv_velocity_sd)
+        / reference_pv_velocity_sd
     )
 
     relative_error_bpm = 100 * np.abs(optimal_bpm - reference_bpm) / reference_bpm
@@ -103,7 +100,16 @@ def calculate_Q_umax(area_i, max_u):
 
 
 def calculate_co_mv_and_pv_peak(
-        Q_avg, n, bpm, model_data, model, Q_ref, area_avg, volume_avg, max_u=None, max_pv=None
+    Q_avg,
+    n,
+    bpm,
+    model_data,
+    model,
+    Q_ref,
+    area_avg,
+    volume_avg,
+    max_u=None,
+    max_pv=None,
 ):
     t_max = 60 / bpm
     scale_ms_to_cms = 100  # to cm/s
@@ -164,25 +170,29 @@ def objective_function(params):
 
     # Calculate the components of your objective function element-wise
     component1 = (
-            w1 * (np.abs(co_calculated - reference_co) / reference_co)
-            + w1 * np.abs(co_calculated_sd - reference_co_sd) / reference_co_sd
+        w1 * (np.abs(co_calculated - reference_co) / reference_co)
+        + w1 * np.abs(co_calculated_sd - reference_co_sd) / reference_co_sd
     )
     component2 = (
-            w2 * (np.abs(pv_calculated - reference_pv_velocity) / reference_pv_velocity)
-            + w2 * np.abs(pv_calculated_sd - reference_pv_velocity_sd) / reference_pv_velocity_sd
+        w2 * (np.abs(pv_calculated - reference_pv_velocity) / reference_pv_velocity)
+        + w2
+        * np.abs(pv_calculated_sd - reference_pv_velocity_sd)
+        / reference_pv_velocity_sd
     )
     component3 = (
-            w3 * (np.abs(mv_calculated - reference_mv_velocity) / reference_mv_velocity)
-            + w3 * np.abs(mv_calculated_sd - reference_mv_velocity_sd) / reference_mv_velocity_sd
+        w3 * (np.abs(mv_calculated - reference_mv_velocity) / reference_mv_velocity)
+        + w3
+        * np.abs(mv_calculated_sd - reference_mv_velocity_sd)
+        / reference_mv_velocity_sd
     )
     component4 = w4 * np.abs(bpm - reference_bpm) / reference_bpm
 
     # Calculate the total objective function as the sum of components
     F = (
-            np.sum(component1)
-            + np.sum(component2)
-            + np.sum(component3)
-            + np.sum(component4)
+        np.sum(component1)
+        + np.sum(component2)
+        + np.sum(component3)
+        + np.sum(component4)
     )
 
     return F

@@ -3,10 +3,10 @@ import numpy as np
 import scipy
 from scipy.optimize import minimize
 
-from common import (
+from atriflow.common import (
     boost_e_wave,
-    get_optimal_values,
     get_cases,
+    get_optimal_values,
     load_data,
     remove_a_wave,
 )
@@ -17,7 +17,9 @@ def compute_error(optimal_alpha, optimal_bpm, model, counter):
     # Calculate the values using the optimal parameters
     e_peak_af_opt, e_peak_sr_opt, co_af_opt, co_sr_opt = np.array(
         [
-            calculate_co_and_peak_e_wave(optimal_alpha, optimal_bpm, data, model, counter)
+            calculate_co_and_peak_e_wave(
+                optimal_alpha, optimal_bpm, data, model, counter
+            )
             for data in all_model_data
         ]
     ).T
@@ -129,7 +131,7 @@ def objective_function(params):
 
     component1 = w1 * ((co_sr - co_af) / co_sr * 100 - reference_co_percent) ** 2
     component2 = (
-            w2 * ((e_peak_af - e_peak_sr) / e_peak_sr * 100 - reference_e_peak_percent) ** 2
+        w2 * ((e_peak_af - e_peak_sr) / e_peak_sr * 100 - reference_e_peak_percent) ** 2
     )
     component3 = w3 * ((bpm - bpm_sr) / bpm_sr * 100 - reference_bpm_percent) ** 2
 
@@ -143,9 +145,7 @@ def plot_initial_and_converged_solution(af_values, sr_values, time_af, time_sr):
     i_mid = 25
     i_end = -1
 
-    fig, axs = plt.subplots(
-        1, 3, figsize=(15, 5)
-    )
+    fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 
     colors = ["#1f77b4", "#ff7f0e"]
     labels = ["SR", "AF"]
@@ -249,10 +249,12 @@ def perform_optimization(model):
     # Calculate errors:
     compute_error(optimal_alpha, optimal_bpm_af, model, counter)
 
+    return optimal_alpha, optimal_bpm_af
+
 
 if __name__ == "__main__":
-    counter = {"c": 0}
     # From step_1.py
+    counter = {"c": 0}
     Q_avgs, n_values, bpms, _, _ = get_optimal_values()
     reference_dict = {
         "bpm_percent": 12.57,  # Increase
@@ -265,6 +267,7 @@ if __name__ == "__main__":
 
     condition = "af"
     cases = get_cases()
+
     Q_ref, area_avg, volume_avg, all_model_data = load_data(cases, condition)
 
     models = ["Q-A", "Q-V"]
@@ -273,6 +276,6 @@ if __name__ == "__main__":
         optimal_n = n_values[model]
         optimal_bpm = bpm_sr = bpms[model]
 
-        perform_optimization(model)
+        alpha, bpm_af = perform_optimization(model)
 
     plot_initial_and_converged_solution(afs, srs, timeaf, timesr)
