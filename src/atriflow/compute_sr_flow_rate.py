@@ -104,7 +104,9 @@ def compute_mean_and_sd(dt, co_values, Q_splev, info, scale, u_mvs, u_pvs, Q_pv)
     u_mvs.append(u_mv_peak)
 
 
-if __name__ == "__main__":
+def main():
+    global optimal_bpm, area_avg, volume_avg, optimal_n
+
     cases = get_cases()
     Q_ref, area_avg, volume_avg, all_model_data = load_data(cases, "sr")
 
@@ -125,3 +127,7 @@ if __name__ == "__main__":
         create_plot_and_save_sr_flow_rate(
             cases, all_model_data, Q_bosi, model, condition
         )
+
+
+if __name__ == '__main__':
+    main()

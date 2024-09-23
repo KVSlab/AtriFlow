@@ -23,6 +23,13 @@ Homepage = "https://github.com/KVSlab/AtriFlow.git"
 Repository = "https://github.com/KVSlab/AtriFlow.git"
 Issues = "https://github.com/KVSlab/AtriFlow/issues"
 
+[project.scripts]
+atriflow-af = "atriflow.compute_af_flow_rate:main"
+atriflow-optimize-af= "atriflow.optimize_af_flow_rate:main"
+atriflow-sr = "atriflow.compute_sr_flow_rate:main"
+atriflow-optimize-sr = "atriflow.optimize_sr_flow_rate:main"
+
+
 
 [project.optional-dependencies]
 test = [

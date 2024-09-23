@@ -1,4 +1,5 @@
 import json
+import sys
 from os import path
 
 import matplotlib.pyplot as plt
@@ -15,6 +16,7 @@ FLOW_EXTENSION_LENGTH_PATH = path.join(ROOT, "volumes/flow_extension_lengths_{}.
 VOLUME_PATH = path.join(ROOT, "volumes/volumes_{}/{}/volume_{}.txt")
 FLOW_RATE_PATH = path.join(ROOT, "flow_rate_waveform.csv")
 SAVE_PATH = path.join(ROOT, "flow_rates/flow_rates_{}")
+DATASET_URL = ""
 
 
 def create_ref_sr():
@@ -253,7 +255,7 @@ def get_mv_flow_rate(flow_rate_path):
 
 
 def get_volume_without_flow_extensions(
-    info, volume_path, flow_extension_values, condition, case, n_cores
+        info, volume_path, flow_extension_values, condition, case, n_cores
 ):
     _, volume_simulation = np.loadtxt(volume_path.format(condition, case, case)).T
     fli, flo = flow_extension_values
@@ -324,7 +326,24 @@ def get_cases():
     return cases
 
 
+def check_data(path_to_check):
+    try:
+        with open(path_to_check) as f:
+            json.load(f)
+    except FileNotFoundError as e:
+        print(f"File not found: {e}")
+        print("Files should be located within 'data' folder")
+        print("Required files:")
+        print("- 'geometry': Folder with info files (PV area, MV area)")
+        print("- 'volumes': Folder with time-dependent volume files and flow extension lengths")
+        print("- 'flow_rate_waveform.csv': Generic wave form data points")
+        print(f"\n Files/Folders are available online here: {DATASET_URL}")
+        sys.exit(1)
+
+
 def load_data(cases, condition):
+    check_data(FLOW_EXTENSION_LENGTH_PATH.format(condition))
+
     # Load data
     all_model_data = []
     with open(FLOW_EXTENSION_LENGTH_PATH.format(condition)) as f:
@@ -368,7 +387,7 @@ def remove_a_wave(Q_scaled):
 
     def quadratic(i):
         term = (i - a_end) / (a_start - a_end)
-        return Q_mv[a_start] * term**2
+        return Q_mv[a_start] * term ** 2
 
     # Remove A wave
     ns = len(Q_mv[a_start:])
@@ -411,16 +430,16 @@ def boost_e_wave(Q_removed, Q_sr, alpha):
 
 
 def get_mv_flow_rate_for_condition(
-    time,
-    area_mv,
-    area_avg,
-    volume_la,
-    volume_avg,
-    Q_bosi,
-    optimal_beta,
-    model,
-    condition,
-    optimal_gamma=None,
+        time,
+        area_mv,
+        area_avg,
+        volume_la,
+        volume_avg,
+        Q_bosi,
+        optimal_beta,
+        model,
+        condition,
+        optimal_gamma=None,
 ):
     if model == "Q-A":
         Q_mv = Q_bosi * (area_mv / area_avg) ** optimal_beta
