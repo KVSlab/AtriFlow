@@ -255,7 +255,7 @@ def get_mv_flow_rate(flow_rate_path):
 
 
 def get_volume_without_flow_extensions(
-        info, volume_path, flow_extension_values, condition, case, n_cores
+    info, volume_path, flow_extension_values, condition, case, n_cores
 ):
     _, volume_simulation = np.loadtxt(volume_path.format(condition, case, case)).T
     fli, flo = flow_extension_values
@@ -335,7 +335,9 @@ def check_data(path_to_check):
         print("Files should be located within 'data' folder")
         print("Required files:")
         print("- 'geometry': Folder with info files (PV area, MV area)")
-        print("- 'volumes': Folder with time-dependent volume files and flow extension lengths")
+        print(
+            "- 'volumes': Folder with time-dependent volume files and flow extension lengths"
+        )
         print("- 'flow_rate_waveform.csv': Generic wave form data points")
         print(f"\n Files/Folders are available online here: {DATASET_URL}")
         sys.exit(1)
@@ -387,7 +389,7 @@ def remove_a_wave(Q_scaled):
 
     def quadratic(i):
         term = (i - a_end) / (a_start - a_end)
-        return Q_mv[a_start] * term ** 2
+        return Q_mv[a_start] * term**2
 
     # Remove A wave
     ns = len(Q_mv[a_start:])
@@ -430,16 +432,16 @@ def boost_e_wave(Q_removed, Q_sr, alpha):
 
 
 def get_mv_flow_rate_for_condition(
-        time,
-        area_mv,
-        area_avg,
-        volume_la,
-        volume_avg,
-        Q_bosi,
-        optimal_beta,
-        model,
-        condition,
-        optimal_gamma=None,
+    time,
+    area_mv,
+    area_avg,
+    volume_la,
+    volume_avg,
+    Q_bosi,
+    optimal_beta,
+    model,
+    condition,
+    optimal_gamma=None,
 ):
     if model == "Q-A":
         Q_mv = Q_bosi * (area_mv / area_avg) ** optimal_beta

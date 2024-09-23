@@ -130,5 +130,5 @@ def main():
         create_plot_and_save_af_flow_rate(cases, all_model_data, Q_bosi, model)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

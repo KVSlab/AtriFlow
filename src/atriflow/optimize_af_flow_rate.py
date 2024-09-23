@@ -131,7 +131,7 @@ def objective_function(params):
 
     component1 = w1 * ((co_sr - co_af) / co_sr * 100 - reference_co_percent) ** 2
     component2 = (
-            w2 * ((e_peak_af - e_peak_sr) / e_peak_sr * 100 - reference_e_peak_percent) ** 2
+        w2 * ((e_peak_af - e_peak_sr) / e_peak_sr * 100 - reference_e_peak_percent) ** 2
     )
     component3 = w3 * ((bpm - bpm_sr) / bpm_sr * 100 - reference_bpm_percent) ** 2
 
@@ -283,5 +283,7 @@ def main():
         alpha, bpm_af = perform_optimization(model)
 
     plot_initial_and_converged_solution(afs, srs, timeaf, timesr)
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     main()
